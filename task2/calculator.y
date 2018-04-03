@@ -12,14 +12,19 @@
 }
 %token EOL
 %token PLUS MINUS TIMES DIV LPARENTHESIS RPARENTHESIS
+%left PLUS MINUS
+%left TIMES DIV
 %token <value> NUMBER
 %type <value> expression
 
 %%
 
 start:
-    expression EOL {print_result($1);} |
-    expression EOL start {print_result($1);};
+    EOL |
+    line |
+    line start ;
+line:
+    expression EOL {print_result($1);} ;
 expression:
     expression PLUS expression {$$ = $1 + $3;} |
     expression MINUS expression {$$ = $1 - $3;} |
@@ -27,7 +32,6 @@ expression:
     expression DIV expression {$$ = $1 / $3;} |
     LPARENTHESIS expression RPARENTHESIS {$$ = $2;} |
     NUMBER {$$ = $1;} ;
-
 
 %%
 
