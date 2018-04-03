@@ -1,2 +1,7 @@
 *.yy.c
 *.out
+*.yy.o
+*.output
+*.tab.c
+*.tab.h
+*.tab.o
